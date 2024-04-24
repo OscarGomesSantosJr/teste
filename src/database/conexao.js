@@ -1,15 +1,6 @@
 const knex = require('knex');
-const configuracao = require('../../knexfile');
+const configuracao = require('../../knex');
 
-const conexao = knex(configuracao, 
-    (error) => {
-        if (error) {
-            return console.log(
-                'Erro ao conectar no Banco de Dados', error
-            );
-        }
-        return console.log("Conexao ao banco realizada com sucesso!");
-    }
-);
+const conexao = knex(configuracao);
 
 module.exports = conexao;
