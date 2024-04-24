@@ -1,3 +1,5 @@
 //require("./modulos/http")
 
-require("./src/app")
+require("./src/app");
+//const conectar = require("./src/database/conexao");
+//conectar();
