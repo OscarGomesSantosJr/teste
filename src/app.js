@@ -1,15 +1,20 @@
 const express = require("express");
 const conectar = require("./database/conexao");
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/home", (request, response) => {
-  response.contentType("Content-Type/html");
+  //console.log("teste");
+  //response.contentType("Content-Type/html");
   response.status(200).send("<h1>BOM DIA</h1>");
 });
 
 app.post("/gravador", (request, response) => {
-  const form = async () => {};
+  console.log(request.body);
+  //const form = async () => {};
 });
 
 const port = 8080;
