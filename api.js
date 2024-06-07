@@ -1,13 +1,11 @@
 async function enviar(){
-    //const rota = "http://localhost:8080/gravador";
-
-    //const response = await fetch(rota);
+    const rota = "http://localhost:8080/gravador";
 
     const formulario = document.querySelector("#formulario");
     const nome = document.querySelector("#nome");
     const idade = document.querySelector("#idade");
 
-    formulario.addEventListener("submit", (e) => {
+    formulario.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         let dados = {
@@ -16,7 +14,21 @@ async function enviar(){
         }
         
         dados = JSON.stringify(dados);
-        console.log(dados);
-        alert(dados);
+        //console.log(dados);
+        //alert(dados);
+
+        const response = await fetch(rota, {
+            method: "POST",
+            body: dados,
+            headers: {
+                "Content-type": "application/json",
+                'Access-Control-Allow-Origin':'*',
+                'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
+            },
+        });
+
+        const data = await response.json();
+
+        console.log(data);
     });
 }
