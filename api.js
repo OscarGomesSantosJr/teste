@@ -15,18 +15,16 @@ async function enviar(){
         
         dados = JSON.stringify(dados);
         //console.log(dados);
-        //alert(dados);
+        alert(dados);
 
         const response = await fetch(rota, {
-            method: "POST",
-            body: dados,
+            method: 'POST',
+            mode:'no-cors',
             headers: {
-                "Content-type": "application/json",
-                'Access-Control-Allow-Origin':'*',
-                'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
+            body: dados,
         });
-
         const data = await response.json();
 
         console.log(data);
