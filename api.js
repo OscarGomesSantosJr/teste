@@ -8,25 +8,26 @@ async function enviar(){
     formulario.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        let dados = {
+        const formData = {
             nome: nome.value,
             idade: idade.value
         }
+        alert(formData);
         
-        dados = JSON.stringify(dados);
         //console.log(dados);
-        alert(dados);
 
-        const response = await fetch(rota, {
+        const request = new Request (rota, {
             method: 'POST',
             mode:'no-cors',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
-            body: dados,
+            body: JSON.stringify(formData),
         });
-        const data = await response.json();
 
-        console.log(data);
+        const response = await fetch(request);
+
+        console.log(response);
     });
 }
