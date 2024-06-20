@@ -3,7 +3,7 @@ const express = require("express");
 const UsuarioController = require("./controller/UsuarioController");
 
 const app = express();
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.post("/gravador", UsuarioController.cadastrarUsuario);
 
