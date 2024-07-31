@@ -1,11 +1,19 @@
 async function enviar(){
-    const rota = "http://localhost:8080/gravador";
+
+    const form = document.querySelector('#formulario'); 
     
-    formulario.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const form = new FormData(document.querySelector("#formulario"));
-        
-        console.log(form.values([0]));
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        //formData.append('nome', document.querySelector("#nome").value);
+        const data = await fetch('http://localhost:8080/gravador', {
+            method: 'POST',
+            mode:   'no-cors',
+            body:   formData
+        });
+
+        const response = await data.json();
+        console.log(formData);
     });
 
     
