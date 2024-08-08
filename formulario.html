@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base href="home.html">
 </head>
 <body>
-<form method="post" id="formulario" action="http://localhost:8080/gravador">
+<!--<form method="post" id="formulario" action="http://localhost:8080/gravador">-->
+<form id="formulario" name="formulario" method="post">
     <label>NOME</label><input type="text" name="nome" id="nome"/><br>
     <label>IDADE</label><input type="text" name="idade" id="idade"/><br>
-    <input type="submit" onclick="" value="ENVIAR"/>
+    <button type="submit" onclick="enviar()">ENVIAR</button>
 </form>
+<script>
+function enviar(){
+    var form = document.querySelector('formulario');
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+        var formData = new FormData(form);
+        //formData.append('nome', document.querySelector("#nome").value);
+        /*
+        const data = await fetch('http://localhost:8080/gravador', {
+            method: 'POST',
+            mode:   'no-cors',
+            body:   formData
+        });
+        const response = await data.json();
+        */
+        console.log(JSON.stringify(formData));
+    });
+}
+</script>
 </body>
 </html>
