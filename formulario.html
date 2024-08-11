@@ -5,7 +5,6 @@
 </head>
 <body>
 
-<!--<form method="post" id="formulario" action="http://localhost:8080/gravador">-->
 <form id="formulario" name="formulario" method="post">
     <label>NOME</label><input type="text" name="nome" id="nome"/><br>
     <label>IDADE</label><input type="text" name="idade" id="idade"/><br>
@@ -14,36 +13,46 @@
 
 <script>
     async function enviar(){
-        var form = document.querySelector('#formulario');
-        var nome = document.querySelector('#nome').value;
-        var idade = document.querySelector('#idade').value;
+        const form = document.querySelector('#formulario');
+        const nome = document.querySelector('#nome').value;
+        const idade = document.querySelector('#idade').value;
 
-        const data = {
+        const baseData = {
             nome: nome,
             idade: idade
         };
 
-        const formData = new FormData();
-        formData.append('nome', data.nome);
-        formData.append('idade', data.idade);
-
         form.addEventListener("submit", async event => {
             event.preventDefault();
-            
-            const enviar = await fetch('http://localhost:8080/gravador', {
-                method:  'POST',
-                mode:    'no-cors',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+
+            const requestOptions = {
+                method: "POST",
+                mode:'no-cors',
+                headers:{
+                    'Accept':'*/*',
+                    'Content-Type':'application/x-www-form-urlencoded',
+                    'Access-Control-Allow-Origin': '*',
                 },
-                body:    JSON.stringify(data),
-            });
-            //https://www.youtube.com/watch?v=e_uE3WlYvYw
-            console.log(data);
-            //const response = await enviar.json();
-            //console.log(JSON.stringify(formData));
-            //console.log(response);
+                body: new URLSearchParams(baseData).toString()
+            };
+            const response = await fetch("http://localhost:8080/gravador", requestOptions)
+                .then((response)=>{
+                    console.log(JSON.stringify(response));
+                    if (!response.ok) {
+                        throw new Error(`Response status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then((data)=>{
+                    console.log(data);
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })
+            ;    
+           
+            //VIDEO EXPLICATIVO API FETCH >> https://www.youtube.com/watch?v=e_uE3WlYvYw
+            //ARTIGO EXPLICATIVO DADOS COM FORMULARIO >> https://horadecodar.com.br/como-fazer-post-com-x-www-form-urlencoded-em-fetch/
 
         });
     }
