@@ -6,6 +6,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.post("/gravador", UsuarioController.cadastrarUsuario);
+app.post("/login", UsuarioController.logarUsuario);
 
 const port = 8080;
 
